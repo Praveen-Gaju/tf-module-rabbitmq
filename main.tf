@@ -17,9 +17,10 @@ resource "aws_spot_instance_request" "rabbitmq" {
 }
 
 resource "aws_route53_record" "rabbitmq" {
+  zone_id = data.aws_route53_zone.domain.zone_id
   name    = "rabbitmq-${var.env}.${var.dns_domain}"
   type    = "A"
-  zone_id = data.aws_route53_zone.domain.zone_id
+  ttl     = 30
   records = [aws_spot_instance_request.rabbitmq.private_ip]
 }
 

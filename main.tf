@@ -16,6 +16,12 @@ resource "aws_spot_instance_request" "rabbitmq" {
   )
 }
 
+resource "aws_ec2_tag" "name-tag" {
+  key         = "Name"
+  resource_id = aws_spot_instance_request.rabbitmq.spot_instance_id
+  value       = "${var.env}-rabbitmq"
+}
+
 resource "aws_route53_record" "rabbitmq" {
   zone_id = data.aws_route53_zone.domain.zone_id
   name    = "rabbitmq-${var.env}.${var.dns_domain}"

@@ -1,5 +1,8 @@
 variable "env" {}
 variable "tags" {}
+variable "component" {
+  default = "rabbitmq"
+}
 variable "subnet_ids" {}
 
 variable "instance_type" {}

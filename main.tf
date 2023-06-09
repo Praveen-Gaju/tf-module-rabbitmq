@@ -13,14 +13,14 @@ resource "aws_spot_instance_request" "rabbitmq" {
 
   tags       = merge(
     var.tags,
-    { Name = "${var.env}-rabbitmq" }
+    { Name = "rabbitmq-${var.env}" }
   )
 }
 
 resource "aws_ec2_tag" "name-tag" {
   key         = "Name"
   resource_id = aws_spot_instance_request.rabbitmq.spot_instance_id
-  value       = "${var.env}-rabbitmq"
+  value       = "rabbitmq-${var.env}"
 }
 
 resource "aws_route53_record" "rabbitmq" {
